@@ -6,8 +6,12 @@ name = "pypi"
 [packages]
 mysqlclient = "*"
 djangorestframework = "*"
-django = "*"
+django = "==3.2"
 isort = "*"
+sentry-sdk = "*"
+virtualenvwrapper = "*"
+django-mysql = "*"
+django-json-widget = "*"
 
 [dev-packages]
 pylama = "*"
@@ -15,3 +19,6 @@ flake8 = "*"
 
 [requires]
 python_version = "3.8"
+
+[pipenv]
+allow_prereleases = true
