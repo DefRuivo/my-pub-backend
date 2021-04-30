@@ -1,21 +1,25 @@
 [[source]]
-url = "https://pypi.org/simple"
+url = "https://nexus.makecodes.dev/repository/pypi-proxy/simple/"
 verify_ssl = true
-name = "pypi"
+name = "pypi-proxy"
 
 [packages]
 mysqlclient = "*"
 djangorestframework = "*"
-django = "==3.2"
-isort = "*"
-sentry-sdk = "*"
+django = "*"
 virtualenvwrapper = "*"
 django-mysql = "*"
 django-json-widget = "*"
+newrelic = "*"
+datadog = "*"
+sentry-sdk = "*"
+django-extensions = "*"
 
 [dev-packages]
+black = "*"
 pylama = "*"
 flake8 = "*"
+isort = "*"
 
 [requires]
 python_version = "3.8"

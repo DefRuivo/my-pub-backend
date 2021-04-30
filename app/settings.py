@@ -1,18 +1,18 @@
 from pathlib import Path
 import os
 
-# import sentry_sdk
-# from sentry_sdk.integrations.django import DjangoIntegration
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
 
 SCOPE = os.getenv("SCOPE", "production")
 
-# sentry_sdk.init(
-#     dsn=os.getenv("SENTRY_DSN"),
-#     integrations=[DjangoIntegration()],
-#     send_default_pii=True,
-#     environment=SCOPE,
-#     release=os.getenv("RELEASE", "unknown"),
-# )
+sentry_sdk.init(
+    dsn=os.getenv("SENTRY_DSN"),
+    integrations=[DjangoIntegration()],
+    send_default_pii=True,
+    environment=SCOPE,
+    release=os.getenv("RELEASE", "unknown"),
+)
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -114,3 +114,8 @@ STATIC_URL = "/static/"
 MEDIA_URL = os.getenv("MEDIA_URL", "/media/")
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# Dadadog
+DATADOG_HOST = os.getenv("DATADOG_HOST", "127.0.0.1")
+DATADOG_PORT = int(os.getenv("DATADOG_PORT", "8125"))
+DATADOG_APP_PREFIX = "mypub."

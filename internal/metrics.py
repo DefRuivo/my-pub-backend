@@ -1,21 +1,15 @@
 import os
 
+from django.conf import settings
 import newrelic.agent
 from datadog import initialize, statsd
 
-initialize(**{"statsd_host": "192.168.200.250", "statsd_port": 8125})
-
-JOBS_MELI_NOTIFICATIONS_CREATED = "jobs.meli.notifications.created"
-JOBS_MELI_NOTIFICATIONS_UPDATED = "jobs.meli.notifications.updated"
-TASKS_CLEAN_FRAME_WITHOUT_INFO = "tasks.clean_frame_without_info"
-TASKS_CREATE_FRAME_POOL_PROCESSING = "tasks.create_frame_pool_processing"
-TASKS_PROCESS_EACH_FRAME = "tasks.process_each_frame"
-TASKS_PROCESS_EACH_FRAME_NO_INFO = "tasks.process_each_frame.no_info"
-TASKS_SPLIT_VIDEO_IN_FRAMES_FRAMES = "tasks.split_video_in_frames.frames"
-TASKS_SYNC_PRODUCT_VARIATION = "tasks.sync_product_variation"
-TASKS_VIDEO_PROCESSING_STATUS = "tasks.video_processing_status"
-TASKS_CORE_REQUESTS = "tasks.core.requests"
-TASKS_CORE_COUNT_REQUESTS = "tasks.core.count.requests"
+initialize(
+    **{
+        "statsd_host": settings.DATADOG_HOST,
+        "statsd_port": settings.DATADOG_PORT,
+    }
+)
 
 
 def _process_tags(tags):
@@ -50,7 +44,7 @@ def record_count(name, increment=1, tags=None):
         tags (dict, optional): Dictionary of "tag name": "tag value" items.
             Defaults to None.
     """
-    name = f"af.{name}"
+    name = f"{settings.DATADOG_APP_PREFIX}{name}"
     statsd.increment(name, increment, tags=_process_tags(tags))
 
 
@@ -63,7 +57,7 @@ def record_gauge(name, value, tags=None):
         value (number): value to record for the flush interval.
         tags (dict, optional): Dictionary of "tag name": "tag value" items. Defaults to None.
     """
-    name = f"af.{name}"
+    name = f"{settings.DATADOG_APP_PREFIX}{name}"
     statsd.gauge(name, value, tags=_process_tags(tags))
 
 
@@ -80,7 +74,7 @@ def record_histogram(name, value, tags=None):
         value (number): The value to add to the distribution computation.
         tags (dict, optional): Dictionary of "tag name": "tag value" items. Defaults to None.
     """
-    name = f"af.{name}"
+    name = f"{settings.DATADOG_APP_PREFIX}{name}"
     statsd.histogram(name, value, tags=_process_tags(tags))
 
 
