@@ -90,10 +90,6 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     @property
     def serialize(self):
-        avatar = None
-        if self.avatar:
-            avatar = self.avatar.url
-
         return {
             "id": self.pk,
             "email": self.email,
