@@ -169,6 +169,8 @@ class Product(models.Model):
         "Descrição",
         max_length=5000,
         help_text="Descrição do produto",
+        null=True,
+        blank=True,
     )
     quantity = models.FloatField(
         "Quantidade",
