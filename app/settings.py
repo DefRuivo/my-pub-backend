@@ -28,6 +28,7 @@ APPEND_SLASH = False
 INSTALLED_APPS = [
     "rest_framework",
     "rest_framework.authtoken",
+    "django_dbml",
     "django_extensions",
     "django.contrib.admin",
     "django.contrib.auth",

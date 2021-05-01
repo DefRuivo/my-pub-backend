@@ -102,3 +102,111 @@ class User(AbstractBaseUser, PermissionsMixin):
             "abbrv": self.get_abbrv,
             "roles": self.roles,
         }
+
+
+class Brand(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True, editable=False)
+    updated_at = models.DateTimeField(auto_now=True)
+    name = models.CharField("Nome", max_length=191, help_text="Nome da marca")
+    website = models.URLField("Website", null=True, blank=True)
+    facebook = models.URLField("Facebook", null=True, blank=True)
+    twitter = models.URLField("Twitter", null=True, blank=True)
+    linkedin = models.URLField("LinkedIn", null=True, blank=True)
+
+
+class VolumeChoices(models.TextChoices):
+    KG = "Kg"
+    L = "L"
+    U = "Unidade"
+
+
+class ProductCategoryChoices(models.TextChoices):
+    PERSONAL_HYGIENE = "Higiene Pessoal"
+    FOOD = "Alimento"
+    CLEANING = "Limpeza"
+    OTHER = "Outro"
+
+
+def get_product_image_upload_path(instance, filename):
+    extension = filename.split(".")[-1].lower()
+    return f"products/{instance.pk}.{extension}"
+
+
+class Product(models.Model):
+    brand = models.ForeignKey("core.Brand", on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True, editable=False)
+    updated_at = models.DateTimeField(auto_now=True)
+    image = models.ImageField(
+        "Imagem principal",
+        upload_to=get_product_image_upload_path,
+        max_length=191,
+        null=True,
+        blank=True,
+        help_text="Imagem principal do produto",
+        default="no-image.png",
+    )
+    category = models.CharField(
+        "Categoria do produto",
+        help_text="Informe corretamente a categoria do produto para não ter supresas",
+        db_index=True,
+        max_length=20,
+        choices=ProductCategoryChoices.choices,
+        default=ProductCategoryChoices.OTHER,
+    )
+    name = models.CharField(
+        "Nome",
+        help_text="Nome do produto",
+        max_length=191,
+    )
+    barcode = models.CharField(
+        "Código de barras",
+        db_index=True,
+        max_length=191,
+        blank=True,
+        null=True,
+    )
+    description = models.TextField(
+        "Descrição",
+        max_length=5000,
+        help_text="Descrição do produto",
+    )
+    quantity = models.FloatField(
+        "Quantidade",
+        help_text="Quantidade do produto na embalagem",
+        blank=True,
+        null=True,
+    )
+    quantity_unit = models.CharField(
+        "Unidade da quantidade",
+        help_text="Unidade utilizada para medir a quantidade do produto na embalagem",
+        max_length=20,
+        choices=VolumeChoices.choices,
+        blank=True,
+        null=True,
+    )
+
+
+class ProductItem(models.Model):
+    product = models.ForeignKey("core.Product", on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True, editable=False)
+    updated_at = models.DateTimeField(auto_now=True)
+    quantity = models.IntegerField("Quantidade", help_text="Quantidade disponível")
+    bought_in = models.DateField(
+        "Data de compra",
+        blank=True,
+        null=True,
+        help_text="Data de compra do item",
+    )
+    valid_until = models.DateField(
+        "Válido até",
+        blank=True,
+        null=True,
+        help_text="Data de validade",
+    )
+    batch = models.CharField(
+        "Lote",
+        max_length=191,
+        blank=True,
+        null=True,
+        help_text="Lote do produto",
+    )
