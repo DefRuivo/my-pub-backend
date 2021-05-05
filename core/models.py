@@ -113,6 +113,9 @@ class Brand(models.Model):
     twitter = models.URLField("Twitter", null=True, blank=True)
     linkedin = models.URLField("LinkedIn", null=True, blank=True)
 
+    def __str__(self):
+        return self.name
+
 
 class VolumeChoices(models.TextChoices):
     KG = "Kg"
@@ -187,6 +190,9 @@ class Product(models.Model):
         null=True,
     )
 
+    def __str__(self):
+        return f"{self.brand} {self.name} ({self.quantity}{self.quantity_unit})"
+
 
 class ProductItem(models.Model):
     product = models.ForeignKey("core.Product", on_delete=models.CASCADE)
@@ -212,3 +218,7 @@ class ProductItem(models.Model):
         null=True,
         help_text="Lote do produto",
     )
+
+    def __str__(self):
+
+        return self.product

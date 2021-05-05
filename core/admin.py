@@ -33,7 +33,15 @@ class BrandAdmin(ImprovedModelAdmin):
 @admin.register(Product)
 class ProductAdmin(ImprovedModelAdmin):
     search_fields = ("id", "name", "barcode")
-    list_display = ("id", "name", "category", "barcode", "quantity", "quantity_unit")
+    list_display = (
+        "id",
+        "name",
+        "brand",
+        "category",
+        "barcode",
+        "quantity",
+        "quantity_unit",
+    )
     list_filter = ("category",)
 
 
