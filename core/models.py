@@ -136,7 +136,7 @@ def get_product_image_upload_path(instance, filename):
 
 
 class Product(models.Model):
-    brand = models.ForeignKey("core.Brand", on_delete=models.CASCADE)
+    brand = models.ForeignKey("core.Brand", on_delete=models.RESTRICT)
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
     updated_at = models.DateTimeField(auto_now=True)
     image = models.ImageField(
@@ -195,7 +195,7 @@ class Product(models.Model):
 
 
 class ProductItem(models.Model):
-    product = models.ForeignKey("core.Product", on_delete=models.CASCADE)
+    product = models.ForeignKey("core.Product", on_delete=models.RESTRICT)
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
     updated_at = models.DateTimeField(auto_now=True)
     quantity = models.IntegerField("Quantidade", help_text="Quantidade disponível")

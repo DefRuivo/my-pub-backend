@@ -3,20 +3,27 @@ from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import mixins, status, viewsets
+from rest_framework.pagination import LimitOffsetPagination
+from django.shortcuts import get_object_or_404
 from .serializers import BrandSerializer
+from core.models import Brand
 
 
-class BrandViewSet(viewsets.GenericViewSet, mixins.CreateModelMixin):
+class BrandViewSet(
+    viewsets.ModelViewSet,
+    mixins.CreateModelMixin,
+    mixins.ListModelMixin,
+):
     serializer_class = BrandSerializer
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
-    http_method_names = ["post"]
+    queryset = Brand.objects.all()
 
-    def create(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
 
-        return Response(
-            serializer.data,
-            status=status.HTTP_201_CREATED,
-        )
+class BrandSingleSet(
+    viewsets.ModelViewSet, mixins.RetrieveModelMixin, mixins.DestroyModelMixin
+):
+    serializer_class = BrandSerializer
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+    queryset = Brand.objects.all()

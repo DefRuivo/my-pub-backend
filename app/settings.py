@@ -122,3 +122,9 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 DATADOG_HOST = os.getenv("DATADOG_HOST", "127.0.0.1")
 DATADOG_PORT = int(os.getenv("DATADOG_PORT", "8125"))
 DATADOG_APP_PREFIX = "mypub."
+
+
+REST_FRAMEWORK = {
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+    "PAGE_SIZE": 50,
+}
