@@ -1,29 +1,13 @@
-from rest_framework import status
-from rest_framework.authentication import TokenAuthentication
-from rest_framework.permissions import IsAuthenticated
-from rest_framework.response import Response
-from rest_framework import mixins, status, viewsets
-from rest_framework.pagination import LimitOffsetPagination
-from django.shortcuts import get_object_or_404
 from .serializers import BrandSerializer
 from core.models import Brand
+from v1.utils import BaseViewSet, BaseSingleSet
 
 
-class BrandViewSet(
-    viewsets.ModelViewSet,
-    mixins.CreateModelMixin,
-    mixins.ListModelMixin,
-):
+class BrandViewSet(BaseViewSet):
     serializer_class = BrandSerializer
-    authentication_classes = [TokenAuthentication]
-    permission_classes = [IsAuthenticated]
-    queryset = Brand.objects.all()
+    queryset = Brand.objects.all().order_by("name")
 
 
-class BrandSingleSet(
-    viewsets.ModelViewSet, mixins.RetrieveModelMixin, mixins.DestroyModelMixin
-):
+class BrandSingleSet(BaseSingleSet):
     serializer_class = BrandSerializer
-    authentication_classes = [TokenAuthentication]
-    permission_classes = [IsAuthenticated]
-    queryset = Brand.objects.all()
+    queryset = Brand.objects.filter()

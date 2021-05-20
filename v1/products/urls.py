@@ -1,21 +1,20 @@
 from rest_framework.routers import DefaultRouter
 
-from .views import BrandViewSet, BrandSingleSet
+from .views import ProductViewSet, ProductSingleSet
 
-
-app_name = "brands"
+app_name = "products"
 
 router = DefaultRouter()
 
 router.register(
     r"",
-    BrandViewSet,
-    basename="brands",
+    ProductViewSet,
+    basename="products",
 )
 router.register(
     r"/(?P<brand_id>\d+)",
-    BrandSingleSet,
-    basename="brands_single",
+    ProductSingleSet,
+    basename="products_single",
 )
 
 urlpatterns = router.urls
