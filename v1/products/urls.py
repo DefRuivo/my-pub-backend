@@ -12,9 +12,9 @@ router.register(
     basename="products",
 )
 router.register(
-    r"/(?P<brand_id>\d+)",
+    r"/(?P<product_id>\d+)",
     ProductSingleSet,
-    basename="products_single",
+    basename="products-single",
 )
 
 urlpatterns = router.urls

@@ -15,7 +15,7 @@ router.register(
 router.register(
     r"/(?P<brand_id>\d+)",
     BrandSingleSet,
-    basename="brands_single",
+    basename="brands-single",
 )
 
 urlpatterns = router.urls
