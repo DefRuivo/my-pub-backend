@@ -13,7 +13,7 @@ RUN apt-get update && apt-get install -y \
     libjpeg-dev \
     zlib1g-dev \
     libzbar0 \
-    && pip install --no-build-isolation pendulum==2.1.0 \
-    && pip install --no-cache-dir -r requirements.txt
+    python3-dev
+RUN pip install --no-cache-dir -r requirements.txt
 
 CMD ["/commands/run-prod.sh"]
