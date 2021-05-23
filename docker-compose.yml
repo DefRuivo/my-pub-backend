@@ -3,6 +3,8 @@ services:
   app:
     build: .
     container_name: mypub-backend
+    volumes:
+      - ./commands:/commands
     env_file:
       - .env
     ports:
