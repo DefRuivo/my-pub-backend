@@ -1,5 +1,5 @@
 [[source]]
-url = "https://nexus.makecodes.dev/repository/pypi-proxy/simple/"
+url = "https://pypi.org/simple"
 verify_ssl = true
 name = "pypi-proxy"
 
@@ -16,6 +16,7 @@ sentry-sdk = "*"
 django-extensions = "*"
 django-dbml = "*"
 pillow = "*"
+uwsgi = "*"
 
 [dev-packages]
 black = "*"
@@ -24,7 +25,7 @@ flake8 = "*"
 isort = "*"
 
 [requires]
-python_version = "3.8"
+python_version = "3.9"
 
 [pipenv]
 allow_prereleases = true

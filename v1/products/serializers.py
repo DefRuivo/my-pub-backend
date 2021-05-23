@@ -19,7 +19,7 @@ class ProductSerializer(serializers.ModelSerializer):
             "quantity",
             "quantity_unit",
         )
-        read_only_fields = ("id", "created_at", "updated_at")
+        read_only_fields = ("id", "created_at", "updated_at", "image")
 
 
 class ProductItemSerializer(serializers.ModelSerializer):
