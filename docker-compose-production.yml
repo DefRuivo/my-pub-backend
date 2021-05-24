@@ -3,6 +3,7 @@ services:
   app:
     build: .
     container_name: mypub-backend
+    restart: always
     env_file:
       - .env
     ports:
